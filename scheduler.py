@@ -25,9 +25,7 @@ def job():
 
 
 if __name__ == "__main__":
-    job()
+    schedule.every(5).minutes.do(job)
 
-# schedule.every().minute.do(job)
-#
-# while True:
-#     schedule.run_pending()
+    while True:
+        schedule.run_pending()
