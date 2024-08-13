@@ -23,7 +23,9 @@ def extract_data_from_db():
             print("Connection successful")
             result = connection.execute(
                 text(
-                    """SELECT * FROM patient_info JOIN study_info ON patient_info.patient_id = study_info.patient_id"""))
+                    """SELECT * FROM patient_info JOIN study_info ON patient_info.patient_id = study_info.patient_id
+                    JOIN patient_info_pet ON patient_info.patient_id=patient_info_pet.patient_id
+                    JOIN patient_folder_map ON patient_info.patient_id=patient_folder_map.patient_id"""))
             return result.fetchall()
     except Exception as e:
         print("Connection failed:", e)

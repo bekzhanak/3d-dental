@@ -19,12 +19,31 @@ prices = {
     }
 
 
+comments = {
+    "3d01": "3D снимок 2 челюсти",
+    "3d02": "3D снимок 1 челюсти",
+    "3d03": "3D снимок сегмента",
+    "3d04": "3D снимок 1 зуба",
+    "3d05": "3D снимок придаточных пазух носа",
+    "3d06": "3D снимок височно-нижнечелюстного сустава",
+    "2d01": "Панорамный снимок",
+    "2d02": "ТРГ боковой/прямой проекции",
+    "2d03": "Кисть",
+    "c01": "3D диагностический снимок 2 челюсти + ВНЧС",
+    "c02": "3D диагностический снимок 2 челюсти + ТРГ",
+    "c03": "3D диагностический снимок 2 челюсти + пазухи носа",
+    "c04": "3D диагностический снимок 2 челюсти + пазухи носа + ВНЧС",
+    "c05": "ТРГ + панорамный снимок",
+    "c06": "ТРГ + кисть"
+}
+
+
 def find_type_from_size(photo_size):
     ranges_data = pd.read_csv("ranges.csv")
     for _, row in ranges_data.iterrows():
         if row['min'] <= int(photo_size) <= row['max']:
             return row['type']
-    return "Кисть"
+    return None
 
 
 def get_price_of_type(ray_type):
@@ -44,3 +63,7 @@ def extract_date_time(datetime_str):
     formatted_time = f"{time_part[:2]}:{time_part[2:4]}:{time_part[4:]}"
 
     return formatted_date, formatted_time
+
+
+def get_ray_type_from_comment(comment):
+    return comments[comment]
