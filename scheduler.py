@@ -14,12 +14,15 @@ def get_insertion_data(data):
             ray_types.append(get_ray_type_from_comment(ray))
     else:
         ray_types = [ray_type]
-    price = get_price_of_type(ray_type)
+    prices = []
+    for ray_type in ray_types:
+        price = get_price_of_type(ray_type)
+        prices.append(price)
     date, time = extract_date_time(data[37])
     name = data[1] + " " + data[2]
     dentist = data[23]
     discount = data[41]
-    return ray_types, [price, discount, name, date, time, dentist]
+    return ray_types, prices, [discount, name, date, time, dentist]
 
 
 def job():
@@ -27,8 +30,8 @@ def job():
     spreadsheet_rows = []
     for data in new_data:
         insertion_data = get_insertion_data(data)
-        for ray_type in insertion_data[0]:
-            spreadsheet_rows.append([ray_type, *insertion_data[1]])
+        for i in len(insertion_data[0]):
+            spreadsheet_rows.append([insertion_data[0][i], insertion_data[1][i], *insertion_data[2]])
 
     append_data_to_sheet(spreadsheet_rows)
 
