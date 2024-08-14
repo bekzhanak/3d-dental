@@ -30,14 +30,15 @@ def job():
     spreadsheet_rows = []
     for data in new_data:
         insertion_data = get_insertion_data(data)
-        for i in len(insertion_data[0]):
+        for i in range(len(insertion_data[1])):
             spreadsheet_rows.append([insertion_data[0][i], insertion_data[1][i], *insertion_data[2]])
 
     append_data_to_sheet(spreadsheet_rows)
 
 
 if __name__ == "__main__":
-    schedule.every().minute.do(job)
+    job()
+    schedule.every(30).minutes.do(job)
 
     while True:
         schedule.run_pending()

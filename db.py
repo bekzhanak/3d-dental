@@ -31,6 +31,8 @@ def extract_data_from_db():
         print("Connection failed:", e)
         sys.exit()
 
+def convert_to_none(value):
+    return None if value == 'None' else value
 
 def extract_new_data():
 
@@ -40,7 +42,7 @@ def extract_new_data():
     prev_data = set()
     with open(data_txt) as file:
         for row in file:
-            prev_data.add(tuple(row.strip().split()))
+            prev_data.add(convert_to_none(val) for val in row.strip().split())
 
     difference = new_data - prev_data
 
